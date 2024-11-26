@@ -1,21 +1,14 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]  
 
   # GET /posts or /posts.json
   def index
-    # Eager load comments and associated users to avoid N+1 queries
-    @posts = Post.includes(comments: :user).all
-    # Rails.logger.debug "Current User: #{current_user.inspect}"    
+    @posts = Post.all
   end
-  
 
   # GET /posts/1 or /posts/1.json
   def show
-    # Eager load comments and associated users for the specific post
-    @post = Post.includes(comments: :user).find(params[:id])
   end
-
 
   # GET /posts/new
   def new
@@ -28,26 +21,18 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
-    else
-      render :new
+    @post = Post.new(post_params)
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @post, notice: "Post was successfully created." }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
-  # def create
-  #   @post = Post.new(post_params)
-
-  #   respond_to do |format|
-  #     if @post.save
-  #       format.html { redirect_to @post, notice: "Post was successfully created." }
-  #       format.json { render :show, status: :created, location: @post }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @post.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update

@@ -1,0 +1,5 @@
+<!-- app/views/comments/_comment.html.erb -->
+<div class="comment">
+  <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
+  <small>Posted on <%= comment.created_at.strftime('%b %d, %Y at %I:%M %p') %></small>
+</div>

@@ -1,12 +1,30 @@
-<% content_for :title, "Editing profile" %>
+<h1>Edit Profile</h1>
 
-<h1>Editing profile</h1>
+<%= form_with model: [@user, @profile], local: true do |form| %>
+  <div class="form-group">
+    <%= form.label :bio %>
+    <%= form.text_area :bio, class: "form-control" %>
+  </div>
 
-<%= render "form", profile: @profile %>
+  <div class="form-group">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url, class: "form-control" %>
+  </div>
 
-<br>
+  <%= form.submit "Save Changes", class: "btn btn-success" %>
+  <%= link_to "Cancel", user_profile_path(@user), class: "btn btn-secondary" %>
+<% end %>
 
-<div>
-  <%= link_to "Show this profile", @profile %> |
-  <%= link_to "Back to profiles", profiles_path %>
-</div>
+
+
+<script>
+/* Resize the avatar image */
+.avatar-img {
+  width: 50px;   /* Set your desired width */
+  height: 50px;  /* Set your desired height */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border-radius: 50%; /* Makes the avatar circular */
+  background-color: #f0f0f0; /* Optional: a background color in case the image fails to load */
+}
+
+</script>

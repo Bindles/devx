@@ -1,10 +1,26 @@
 Rails.application.routes.draw do
-  resources :profiles
+  #resources :profiles
   resources :posts
+
+  resources :posts do
+    resources :comments, only: [:create], defaults: { commentable: 'Post' }
+  end
+  # resources :guides do
+  #   resources :comments, only: [:create], defaults: { commentable: 'Guide' }
+  # end
+  # resources :snippets do
+  #   resources :comments, only: [:create], defaults: { commentable: 'Snippet' }
+  # end
+  
   # devise_for :users #default
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks'   
   }
+
+# Nested profile routes under users
+resources :users, only: [] do
+  resource :profile, only: [:show, :edit, :update]
+end  
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,4 +1,6 @@
 <p style="color: green"><%= notice %></p>
+user: <%= current_user.inspect %>
+<li>Welcomexxx, <%= current_user.inspect %></li>
 
 <%= render @post %>
 
@@ -8,3 +10,5 @@
 
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
+
+
