@@ -21,6 +21,13 @@ Rails.application.routes.draw do
 resources :users, only: [] do
   resource :profile, only: [:show, :edit, :update]
 end  
+
+resources :friendships, only: [:index, :create, :destroy]
+
+#maybe not needed or need checking
+#get '/profile/:id', to: 'profiles#show', as: :profile
+
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -37,3 +37,6 @@ Depending on your application's configuration some manual setup may be required:
      * Not required *
 
   ## DO 4 
+
+
+  Friends done, prior to adding uniq username field to User, making it editable in profile, and making sure user can edit only there own authenticated profile
