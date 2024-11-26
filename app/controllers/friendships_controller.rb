@@ -28,5 +28,10 @@ class FriendshipsController < ApplicationController
     end
     redirect_to friendship_path
   end
+
+  # Action to search for users by username
+  def search
+    @users = User.where("username LIKE ?", "%#{params[:username]}%")
+  end  
   
 end

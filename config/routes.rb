@@ -14,13 +14,14 @@ Rails.application.routes.draw do
   
   # devise_for :users #default
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'   
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks',   
   }
 
-# Nested profile routes under users
-resources :users, only: [] do
-  resource :profile, only: [:show, :edit, :update]
-end  
+  # Nested profile routes under users
+  resources :users, only: [:edit, :update] do  #only: [:edit, :update]
+    resource :profile, only: [:show, :edit, :update]
+  end  
 
 resources :friendships, only: [:index, :create, :destroy]
 

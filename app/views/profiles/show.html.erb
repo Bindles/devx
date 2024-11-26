@@ -26,11 +26,4 @@
 
 
 
-<h1>end user</h1>
-<h1><%= @user.email %>'s Profile</h1>
-<p><strong>Bio:</strong> <%= @profile.bio.presence || "No bio provided" %></p>
-<% if @profile.avatar_url.present? %>
-  <img src="<%= @profile.avatar_url %>" alt="<%= @user.email %>'s Avatar">
-<% else %>
-  <p>No avatar set.</p>
-<% end %>
+
