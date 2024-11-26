@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :profiles
+  resources :posts
   # devise_for :users #default
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
