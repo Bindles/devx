@@ -6,36 +6,25 @@
     <%= form.text_field :username, class: "form-control", value: @user.username %>
   </div>
 
-<%= form.fields_for :profile, @profile do |profile_form| %>
-  <div class="form-group">
-    <%= profile_form.label :bio %>
-    <%= profile_form.text_area :bio, class: "form-control", value: @profile.bio %>
-  </div>
+  <%= form.fields_for :profile, @profile do |profile_form| %>
+    <div class="form-group">
+      <%= profile_form.label :bio %>
+      <%= profile_form.text_area :bio, class: "form-control", value: @profile.bio %>
+    </div>
+    
 
   <div class="form-group">
-    <%= profile_form.label :avatar_url, "Avatar (Upload a file or enter a URL below)" %>
+    <%= profile_form.label :avatar_url %>
     <div id="image-preview-container">
       <img id="image-preview" src="<%= @profile.avatar_url.presence || '#' %>" style="display: <%= @profile.avatar_url.present? ? 'block' : 'none' %>; max-width: 150px; margin-bottom: 10px;" alt="Preview">
     </div>
-    <%= profile_form.file_field :avatar_file, class: "form-control", id: "image-upload" %>
+    <%= profile_form.file_field :avatar_url, class: "form-control", id: "image-upload" %>
   </div>
-
-  <div class="form-group">
-    <%= profile_form.label :avatar_url_text, "Avatar URL (Optional, if not uploading a file)" %>
-    <%= profile_form.text_field :avatar_url_text, class: "form-control", value: @profile.avatar_url %>
-  </div>
-<% end %>
-
-  <%= form.select :category, 
-      options_for_select(Profile.all.pluck(:avatar_url).uniq), 
-      { include_blank: true, class: "form-select block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" },
-      { id: "category-dropdown" } %>
+  <% end %>
 
   <%= form.submit "Save Changes", class: "btn btn-success" %>
   <%= link_to "Cancel", user_profile_path(@user), class: "btn btn-secondary" %>
 <% end %>
-
-<%= (Profile.all.pluck(:avatar_url).uniq) %>
 
 
 
