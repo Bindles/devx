@@ -143,7 +143,7 @@ Devise.setup do |config|
   # without confirming their account.
   # Default is 0.days, meaning the user cannot access the website without
   # confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  config.allow_unconfirmed_access_for = 0.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -314,9 +314,13 @@ Devise.setup do |config|
   # =======>
   # omniauth ====>
   # ======>
+  # Ensure OmniAuth works with Rails' built-in CSRF protection
   config.omniauth :auth0,
-    ENV['AUTH0_CLIENT_ID'],
-    ENV['AUTH0_CLIENT_SECRET'],
-    ENV['AUTH0_DOMAIN'],
-    callback_path: "/users/auth/auth0/callback"
+                  ENV['AUTH0_CLIENT_ID'],
+                  ENV['AUTH0_CLIENT_SECRET'],
+                  ENV['AUTH0_DOMAIN'],
+                  callback_path: '/users/auth/auth0/callback',
+                  authorize_params: {
+                    scope: 'openid profile email'
+                  }
 end

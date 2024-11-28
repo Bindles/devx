@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  skip_before_action :verify_authenticity_token, if: -> { request.env['omniauth.origin'].present? }  
+  protect_from_forgery unless: -> { request.path.start_with?('/users/auth/') }
+
   protected
 
   def configure_permitted_parameters

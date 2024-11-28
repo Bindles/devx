@@ -21,9 +21,12 @@ Rails.application.routes.draw do
   # Nested profile routes under users
   resources :users, only: [:edit, :update] do  #only: [:edit, :update]
     resource :profile, only: [:show, :edit, :update]
+    patch :update_username, on: :member
+    patch :update_profile, on: :member    
   end  
 
-resources :friendships, only: [:index, :create, :destroy]
+resources :friendships, only: [:index, :create, :destroy], path: 'friends', as: 'friends'
+#resources :friendships, path: 'friends', as: 'friends' #how to change name to friends with path
 
 #maybe not needed or need checking
 #get '/profile/:id', to: 'profiles#show', as: :profile
@@ -41,5 +44,5 @@ resources :friendships, only: [:index, :create, :destroy]
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "posts#index"
 end

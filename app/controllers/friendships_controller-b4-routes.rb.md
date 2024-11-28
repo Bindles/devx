@@ -19,9 +19,9 @@ class FriendshipsController < ApplicationController
     # Add a new friend
     friend = User.find(params[:friend_id])
     if current_user.friends << friend
-      redirect_to friends_path, notice: "#{friend.email} added as a friend."
+      redirect_to friendships_path, notice: "#{friend.email} added as a friend."
     else
-      redirect_to friends_path, alert: "Unable to add friend."
+      redirect_to friendships_path, alert: "Unable to add friend."
     end
   end
 
@@ -32,7 +32,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:alert] = "Unable to remove friend."
     end
-    redirect_to friends_path
+    redirect_to friendship_path
   end
 
   # Action to search for users by username

@@ -29,19 +29,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def auth0
-    # Extract user info from the OmniAuth auth hash
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
-      flash[:notice] = "Signed in successfully!"
+      set_flash_message(:notice, :success, kind: 'Auth0') if is_navigational_format?
     else
-      redirect_to new_user_registration_url, alert: "Error signing in."
+      session['devise.auth0_data'] = request.env['omniauth.auth']
+      redirect_to new_user_registration_url
     end
   end
 
   def failure
-    redirect_to root_path
+    redirect_to root_path, alert: "Authentication failed. Please try again."
   end
     
 end

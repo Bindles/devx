@@ -11,8 +11,8 @@
 
   </style>  
 </head>
-
-<h1><%= @user.email %>'s Profile</h1>
+<%= current_user.inspect %>
+<h1><%= @user.email %> (<%= @user.username %>)'s Profile</h1>
 <p><strong>Bio:</strong> <%= @profile.bio.presence || "No bio provided" %></p>
 <p><strong>Avatar:</strong></p>
 <% if @profile.avatar_url.present? %>

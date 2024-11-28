@@ -1,0 +1,84 @@
+<h1 class="text-center">Friends</h1>
+
+<div class="container mt-4">
+  <!-- Friends Section -->
+  <h2>Your Friends</h2>
+  <% if @friends.any? %>
+    <div class="row">
+      <% @friends.each do |friend| %>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to friend.username, user_profile_path(friend.id), class: "text-primary" %>
+              </h5>
+              <%= button_to 'Delete', friends_path(friend.id), 
+                            method: :delete, 
+                            data: { confirm: 'Are you sure you want to remove this friend?' }, 
+                            class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">You have no friends yet.</p>
+  <% end %>
+</div>
+
+<div class="container mt-4">
+  <!-- All Users Section -->
+  <h2>All Users</h2>
+  <% if @all_users.any? %>
+    <div class="row">
+      <% @all_users.each do |user| %>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= user.email %></h5>
+              <%= button_to "Add Friend", friends_path(friend_id: user.id), 
+                            method: :post, 
+                            class: "btn btn-success btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No other users available.</p>
+  <% end %>
+</div>
+
+
+
+
+
+<h1>Search Users</h1>
+<%= form_with url: friends_path, method: :get, local: true do |form| %>
+  <div>
+    <%= form.label :query, "Search by username" %>
+    <%= form.text_field :query, placeholder: "Enter username" %>
+    <%= form.submit "Search" %>
+  </div>
+<% end %>
+
+<h2>Results</h2>
+<ul>
+  <% @all_users.each do |user| %>
+    <li>
+      <%= user.email %> (<%= user.username %>)
+      <!-- You can add buttons for sending friend requests here -->
+    </li>
+  <% end %>
+</ul>
+
+<%= @users.inspect %>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.email %> (<%= user.username %>)
+      <!-- You can add buttons for sending friend requests here -->
+    </li>
+  <% end %>
+</ul>
