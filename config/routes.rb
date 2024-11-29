@@ -28,6 +28,11 @@ Rails.application.routes.draw do
 resources :friendships, only: [:index, :create, :destroy], path: 'friends', as: 'friends'
 #resources :friendships, path: 'friends', as: 'friends' #how to change name to friends with path
 
+resources :conversations, only: [:index, :show, :create] do
+  resources :messages, only: [:create]
+end
+
+
 #maybe not needed or need checking
 #get '/profile/:id', to: 'profiles#show', as: :profile
 

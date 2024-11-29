@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 user: <%= current_user.inspect %>
 <li>Welcomexxx, <%= current_user.inspect %></li>
-
+<%= turbo_stream_from @post %>
 <%= render @post %>
 
 <div>
